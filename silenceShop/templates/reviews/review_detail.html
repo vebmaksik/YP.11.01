@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Рапорт об испытании — Черная Тишина{% endblock %}
+
+{% block content %}
+<div style="background-color: #121215; border: 1px solid #1f1f24; padding: 35px; border-radius: 3px;">
+    <h2>Рапорт об испытании: {{ review.equipment.name }}</h2>
+    <p style="font-size: 14px; margin: 5px 0;">Автор: <strong>{{ review.user.username }}</strong></p>
+    <p style="font-size: 14px; margin: 5px 0;">Оценка эффективности: <strong style="color: #cda869;">{{ review.rating }} из 5</strong></p>
+    <p style="font-size: 14px; margin: 5px 0; color: #55555c;">Дата рапорта: {{ review.created_at }}</p>
+    <hr style="border: 0; border-top: 1px solid #1f1f24; margin: 20px 0;">
+    
+    <p style="font-size: 16px; color: #a9a9b0; margin-bottom: 35px; white-space: pre-line;">{{ review.comment }}</p>
+    
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <!-- Редактировать могут те, у кого уровень допуска >= 4 -->
+        {% if clearance_level >= 4 %}
+            <a href="{% url 'review_update' pk=review.pk %}" class="btn btn-secondary">Редактировать</a>
+        {% endif %}
+        <!-- Удалить рапорт могут только администраторы/пользователи с допуском >= 8 -->
+        {% if clearance_level >= 8 %}
+            <a href="{% url 'review_delete' pk=review.pk %}" class="btn">Удалить рапорт</a>
+        {% endif %}
+        <a href="{% url 'review_list' %}" class="btn btn-secondary">Назад к списку рапортов</a>
+    </div>
+</div>
+{% endblock %}

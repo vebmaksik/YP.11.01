@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Рапорты фиксеров — Черная Тишина{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+    <h2>Рапорты об испытании снаряжения</h2>
+    {% if user.is_authenticated and clearance_level >= 1 %}
+        <a href="{% url 'review_create' %}" class="btn btn-success">+ Написать новый рапорт</a>
+    {% endif %}
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 15px;">
+    {% for rev in reviews %}
+    <div style="background-color: #121215; padding: 25px; border-left: 3px solid #8c1d1d; border-radius: 3px;">
+        <h3 style="margin-bottom: 5px;">Испытание: {{ rev.equipment.name }}</h3>
+        <p style="font-size: 14px; margin: 5px 0;">Автор рапорта: <strong>{{ rev.user.username }}</strong> | Оценка эффективности: <strong style="color: #cda869;">{{ rev.rating }} / 5</strong></p>
+        <p style="color: #a9a9b0; margin: 15px 0;">{{ rev.comment|truncatewords:20 }}</p>
+        <a href="{% url 'review_detail' pk=rev.pk %}" style="color: #cda869; text-decoration: none; font-size: 14px; font-weight: bold;">Посмотреть рапорт полностью →</a>
+    </div>
+    {% empty %}
+    <div style="text-align: center; padding: 40px; background-color: #121215; border: 1px solid #1f1f24; border-radius: 3px;">
+        <p>Рапорты об испытаниях пока не поступали.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

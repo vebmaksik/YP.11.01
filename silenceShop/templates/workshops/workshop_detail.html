@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}{{ workshop.name }} — Досье мастерской{% endblock %}
+
+{% block content %}
+<div class="detail-view">
+    <div>
+        {% if workshop.logo %}
+            <img src="{{ workshop.logo.url }}" alt="{{ workshop.name }}">
+        {% else %}
+            <div style="width: 350px; height: 350px; background-color: #1a1a1f; border: 1px solid #1f1f24; display: flex; align-items: center; justify-content: center; color: #55555c;">Логотип отсутствует</div>
+        {% endif %}
+    </div>
+    <div class="detail-info">
+        <h2>Мастерская: {{ workshop.name }}</h2>
+        <hr style="border: 0; border-top: 1px solid #1f1f24; margin: 20px 0;">
+        <p style="font-size: 16px; color: #a9a9b0; margin-bottom: 30px;">{{ workshop.description|default:"Информация и технический профиль мастерской не заполнены." }}</p>
+        
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            {% if clearance_level >= 4 %}
+                <a href="{% url 'workshop_update' pk=workshop.pk %}" class="btn btn-secondary">Редактировать</a>
+            {% endif %}
+            {% if clearance_level >= 8 %}
+                <a href="{% url 'workshop_delete' pk=workshop.pk %}" class="btn">Удалить запись</a>
+            {% endif %}
+            <a href="{% url 'workshop_list' %}" class="btn btn-secondary">Назад к списку</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

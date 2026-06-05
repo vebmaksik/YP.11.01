@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Каталог Снаряжения — Черная Тишина{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+    <h2>Доступное Снаряжение Ателье</h2>
+    {% if clearance_level >= 8 %}
+        <a href="{% url 'equipment_create' %}" class="btn btn-success">+ Создать снаряжение</a>
+    {% endif %}
+</div>
+
+<div class="grid">
+    {% for eq in equipments %}
+    <div class="card">
+        <div>
+            {% if eq.photo %}
+                <img src="{{ eq.photo.url }}" alt="{{ eq.name }}">
+            {% else %}
+                <div style="height: 200px; background-color: #1a1a1f; border: 1px solid #1f1f24; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; color: #55555c;">Нет изображения</div>
+            {% endif %}
+            <h3>{{ eq.name }}</h3>
+            <p style="font-size: 14px; margin: 5px 0;">Мастерская: <span style="color: #cda869;">{{ eq.workshop.name|default:"Не указана" }}</span></p>
+            <p style="font-size: 14px; margin: 5px 0;">Уровень опасности: <span style="color: #8c1d1d;">{{ eq.level }}</span></p>
+        </div>
+        <div style="margin-top: 15px;">
+            <p style="color: #cda869; font-weight: bold; font-size: 18px; margin-bottom: 15px;">{{ eq.price }} Ankh</p>
+            <a href="{% url 'equipment_detail' pk=eq.pk %}" class="btn" style="width: 80%; text-align: center;">Подробнее</a>
+        </div>
+    </div>
+    {% empty %}
+    <div style="grid-column: 1 / -1; text-align: center; padding: 40px; background-color: #121215; border: 1px solid #1f1f24; border-radius: 3px;">
+        <p>Каталог снаряжения пуст.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

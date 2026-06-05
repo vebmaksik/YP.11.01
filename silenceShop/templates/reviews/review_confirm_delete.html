@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Удаление рапорта — Черная Тишина{% endblock %}
+
+{% block content %}
+<div style="background-color: #121215; border: 1px solid #8c1d1d; padding: 40px; text-align: center; max-width: 600px; margin: 50px auto; border-radius: 3px;">
+    <h2 style="color: #8c1d1d; margin-bottom: 20px;">Подтверждение удаления рапорта</h2>
+    <p style="font-size: 16px; margin-bottom: 30px;">
+        Вы действительно хотите безвозвратно удалить рапорт фиксера <strong style="color: #ffffff;">{{ object.user.username }}</strong> о снаряжении <strong style="color: #ffffff;">{{ object.equipment.name }}</strong>?
+    </p>
+    <form method="post" style="border: none; padding: 0; background: none; max-width: 100%;">
+        {% csrf_token %}
+        <div style="display: flex; justify-content: center; gap: 15px;">
+            <button type="submit" class="btn">Да, удалить рапорт</button>
+            <a href="{% url 'review_detail' pk=object.pk %}" class="btn btn-secondary">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

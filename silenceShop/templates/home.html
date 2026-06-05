@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Главная — Ателье Чёрная Тишина{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 60px 20px; background-color: #121215; border: 1px solid #1f1f24; border-radius: 3px;">
+    <h1 style="font-size: 36px; margin-bottom: 20px;">ДОБРО ПОЖАЛОВАТЬ В АТЕЛЬЕ «ЧЕРНАЯ ТИШИНА»</h1>
+    <p style="font-size: 18px; max-width: 800px; margin: 0 auto 35px auto; color: #a9a9b0;">
+        Мы приветствуем вас в официальном дистрибьюторском центре высококлассного вооружения Южных районов Города. Здесь вы можете обменять полученные Книги на боевые страницы, ключевые костюмы и патенты легендарных мастерских.
+    </p>
+    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+        <a href="{% url 'equipment_list' %}" class="btn">Перейти в каталог снаряжения</a>
+        <a href="{% url 'info' %}" class="btn btn-secondary">Узнать об ателье</a>
+    </div>
+</div>
+{% endblock %}

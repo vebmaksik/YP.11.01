@@ -1,0 +1,293 @@
+/* Общие настройки */
+body {
+    background-color: #0c0c0e;
+    color: #d1d1d6;
+    font-family: 'Georgia', serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    opacity: 0; /* Для плавного появления страницы через JS */
+    transition: opacity 0.5s ease-in-out;
+}
+
+body.fade-in {
+    opacity: 1;
+}
+
+/* Стили заголовков */
+h1, h2, h3, h4 {
+    color: #cda869;
+    font-weight: normal;
+    margin-top: 0;
+    letter-spacing: 1px;
+}
+
+/* Кнопки */
+.btn {
+    background-color: #8c1d1d;
+    color: #ffffff;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s, transform 0.1s, box-shadow 0.3s;
+    border: none;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    font-size: 14px;
+    border-radius: 2px;
+}
+
+.btn:hover {
+    background-color: #b02828;
+    box-shadow: 0 0 10px rgba(176, 40, 40, 0.4);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-secondary {
+    background-color: #2b2b30;
+}
+
+.btn-secondary:hover {
+    background-color: #404047;
+    box-shadow: 0 0 10px rgba(64, 64, 71, 0.4);
+}
+
+.btn-success {
+    background-color: #1e5a22;
+}
+
+.btn-success:hover {
+    background-color: #2e7d32;
+    box-shadow: 0 0 10px rgba(46, 125, 50, 0.4);
+}
+
+/* Навигация (Header) */
+header {
+    background-color: #121215;
+    border-bottom: 2px solid #8c1d1d;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+nav a {
+    color: #cda869;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+nav a:hover, nav a.active {
+    color: #ffffff;
+    text-shadow: 0 0 8px #cda869;
+}
+
+/* Главный контейнер */
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    min-height: 65vh;
+}
+
+/* Сетки и карточки */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.card {
+    background-color: #121215;
+    border: 1px solid #1f1f24;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color 0.3s, transform 0.3s;
+    border-radius: 3px;
+}
+
+.card:hover {
+    border-color: #cda869;
+    transform: translateY(-5px);
+}
+
+.card img {
+    max-width: 100%;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 1px solid #1f1f24;
+    transition: filter 0.3s;
+}
+
+.card:hover img {
+    filter: brightness(1.1);
+}
+
+/* Детальные страницы */
+.detail-view {
+    background-color: #121215;
+    border: 1px solid #1f1f24;
+    padding: 40px;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    border-radius: 3px;
+}
+
+.detail-view img {
+    max-width: 380px;
+    width: 100%;
+    height: auto;
+    border: 1px solid #cda869;
+    box-shadow: 0 0 15px rgba(205, 168, 105, 0.15);
+}
+
+.detail-info {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* Оформление форм Django */
+form {
+    background-color: #121215;
+    border: 1px solid #1f1f24;
+    padding: 30px;
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 3px;
+}
+
+form p {
+    margin-bottom: 20px;
+}
+
+form label {
+    display: block;
+    color: #cda869;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+/* В селектор ниже добавлено поле для ввода пароля (form input[type="password"]) */
+form input[type="text"],
+form input[type="number"],
+form input[type="password"],
+form input[type="file"],
+form select,
+form textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: #1a1a1f;
+    border: 1px solid #333;
+    color: #fff;
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: border-color 0.3s, background-color 0.3s;
+    border-radius: 2px;
+}
+
+form input[type="text"]:focus,
+form input[type="number"]:focus,
+form input[type="password"]:focus,
+form select:focus,
+form textarea:focus {
+    border-color: #cda869;
+    background-color: #212128;
+    outline: none;
+}
+
+form input[type="checkbox"] {
+    margin-right: 10px;
+    width: auto;
+}
+
+form textarea {
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+/* Системные оповещения */
+.messages-container {
+    max-width: 1200px;
+    margin: 0 auto 20px auto;
+}
+
+.alert {
+    padding: 15px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    border-left: 4px solid;
+}
+
+.alert-success {
+    background-color: rgba(30, 90, 34, 0.2);
+    border-color: #2e7d32;
+    color: #a5d6a7;
+}
+
+.alert-error {
+    background-color: rgba(140, 29, 29, 0.2);
+    border-color: #8c1d1d;
+    color: #ef9a9a;
+}
+
+/* Подвал */
+footer {
+    text-align: center;
+    padding: 40px;
+    color: #55555c;
+    font-size: 12px;
+    border-top: 1px solid #1f1f24;
+    margin-top: 50px;
+}
+
+/* Специальная кнопка звукового режима */
+.silence-toggle {
+    background: none;
+    border: 1px solid #cda869;
+    color: #cda869;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 11px;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+.silence-toggle:hover {
+    background-color: #cda869;
+    color: #0c0c0e;
+}
+
+.silence-active {
+    border-color: #8c1d1d;
+    color: #8c1d1d;
+    box-shadow: 0 0 8px rgba(140, 29, 29, 0.4);
+}

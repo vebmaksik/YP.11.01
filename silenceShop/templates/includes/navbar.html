@@ -1,0 +1,24 @@
+<header>
+    <nav>
+        <a href="{% url 'home' %}">ГЛАВНАЯ</a>
+        <a href="{% url 'info' %}">О КОМПАНИИ</a>
+        <a href="{% url 'equipment_list' %}">СНАРЯЖЕНИЕ</a>
+        <a href="{% url 'workshop_list' %}">МАСТЕРСКИЕ</a>
+        <a href="{% url 'category_list' %}">КАТЕГОРИИ</a>
+        <a href="{% url 'fixer_list' %}">ФИКСЕРЫ</a>
+        <a href="{% url 'review_list' %}">ОТЧЕТЫ</a>
+        <a href="{% url 'cart' %}">КОРЗИНА</a>
+        
+        {% if user.is_authenticated %}
+            <span style="color: #cda869; font-size: 13px; font-weight: bold; border-left: 1px solid #333; padding-left: 15px;">
+                ФИКСЕР: {{ user.username|upper }} (ДОПУСК: {{ clearance_level }})
+            </span>
+            <a href="{% url 'logout' %}" style="color: #8c1d1d;">ВЫЙТИ</a>
+        {% else %}
+            <a href="{% url 'login' %}" style="color: #2e7d32;">ВХОД</a>
+            <a href="{% url 'signup' %}" style="color: #bfa15f;">РЕГИСТРАЦИЯ</a>
+        {% endif %}
+        
+        <button id="silence-btn" class="silence-toggle">РЕЖИМ ТИШИНЫ: ВЫКЛ</button>
+    </nav>
+</header>

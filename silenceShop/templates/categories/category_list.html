@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Категории снаряжения — Черная Тишина{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+    <h2>Категории артефактов и снаряжения</h2>
+    {% if clearance_level >= 8 %}
+        <a href="{% url 'category_create' %}" class="btn btn-success">+ Создать категорию</a>
+    {% endif %}
+</div>
+
+<div style="background-color: #121215; border: 1px solid #1f1f24; padding: 30px; border-radius: 3px;">
+    <ul style="list-style-type: square; font-size: 18px; line-height: 2.5; padding-left: 20px; margin: 0;">
+        {% for cat in categories %}
+        <li>
+            <a href="{% url 'category_detail' pk=cat.pk %}" style="color: #cda869; text-decoration: none; font-weight: bold;">{{ cat.name }}</a>
+        </li>
+        {% empty %}
+        <p style="font-size: 16px; color: #55555c;">Категории пока не настроены.</p>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

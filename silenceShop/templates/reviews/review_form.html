@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}{% if object %}Редактирование{% else %}Создание{% endif %} рапорта{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 0 auto;">
+    <h2 style="text-align: center; margin-bottom: 30px;">
+        {% if object %}Редактировать рапорт фиксера: {{ object.user.username }}{% else %}Составить новый рапорт об испытании снаряжения{% endif %}
+    </h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-success">Отправить рапорт</button>
+            {% if object %}
+                <a href="{% url 'review_detail' pk=object.pk %}" class="btn btn-secondary">Отмена</a>
+            {% else %}
+                <a href="{% url 'review_list' %}" class="btn btn-secondary">Отмена</a>
+            {% endif %}
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Корзина — Черная Тишина{% endblock %}
+
+{% block content %}
+<h2>Ваш Заказ в Ателье</h2>
+
+{% if cart_items %}
+<div style="background-color: #121215; border: 1px solid #1f1f24; padding: 30px; border-radius: 3px;">
+    <table style="width: 100%; border-collapse: collapse; text-align: left;">
+        <thead>
+            <tr style="border-bottom: 1px solid #333; color: #cda869;">
+                <th style="padding: 10px 0;">Товар</th>
+                <th style="padding: 10px 0; text-align: center;">Количество</th>
+                <th style="padding: 10px 0; text-align: right;">Цена</th>
+                <th style="padding: 10px 0; text-align: right;">Сумма</th>
+                <th style="padding: 10px 0; text-align: center;">Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr style="border-bottom: 1px solid #1a1a1f;">
+                <td style="padding: 15px 0; display: flex; align-items: center; gap: 15px;">
+                    {% if item.equipment.photo %}
+                        <img src="{{ item.equipment.photo.url }}" alt="{{ item.equipment.name }}" style="width: 50px; height: 50px; object-fit: cover; border: 1px solid #333;">
+                    {% endif %}
+                    <span>{{ item.equipment.name }}</span>
+                </td>
+                <td style="padding: 15px 0; text-align: center;">{{ item.quantity }}</td>
+                <td style="padding: 15px 0; text-align: right; color: #cda869;">{{ item.price }} Ankh</td>
+                <td style="padding: 15px 0; text-align: right; color: #cda869;">{{ item.total }} Ankh</td>
+                <td style="padding: 15px 0; text-align: center;">
+                    <a href="{% url 'cart_remove' pk=item.equipment.pk %}" class="btn" style="padding: 5px 10px; font-size: 12px; background-color: #555;">Удалить</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <div style="text-align: right; margin-top: 30px;">
+        <h3 style="margin-bottom: 20px;">Итого к оплате: <span style="color: #cda869;">{{ total_price }} Ankh</span></h3>
+        
+        {% if user.is_authenticated %}
+            <!-- Кнопка оформления заказа, доступная только для авторизованных -->
+            <a href="{% url 'create_order' %}" class="btn btn-success" style="font-size: 16px; padding: 12px 30px;">Оформить заказ на фиксера {{ user.username|upper }}</a>
+        {% else %}
+            <!-- Предупреждение для анонимных пользователей -->
+            <div style="background-color: rgba(140, 29, 29, 0.1); border: 1px solid #8c1d1d; padding: 15px; text-align: center; display: inline-block;">
+                <p style="margin: 0 0 10px 0; color: #ef9a9a; font-size: 14px;">Для завершения оформления заказа необходимо войти в систему.</p>
+                <a href="{% url 'login' %}" class="btn" style="font-size: 13px; padding: 8px 20px;">Авторизоваться</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% else %}
+<div style="background-color: #121215; padding: 40px; border: 1px solid #1f1f24; text-align: center; border-radius: 3px;">
+    <p style="font-size: 18px; margin-bottom: 20px;">Ваша корзина заказов в данный момент пуста.</p>
+    <a href="{% url 'equipment_list' %}" class="btn">Изучить ассортимент снаряжения</a>
+</div>
+{% endif %}
+{% endblock %}

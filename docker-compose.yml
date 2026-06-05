@@ -1,0 +1,54 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: bs_postgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: Silence
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  web:
+    build: .
+    container_name: bs_django_web
+    restart: always
+    command: >
+      sh -c "python manage.py collectstatic --noinput &&
+             python manage.py migrate &&
+             gunicorn shop.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+    volumes:
+      - .:/app
+      - static_volume:/app/staticfiles  
+      - media_volume:/app/media
+    expose:
+      - "8000"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST_PGSQL=db
+      - DB_PORT_PGSQL=5432
+      - DB_NAME_PGSQL=Silence
+      - DB_USERNAME_PGSQL=postgres
+      - DB_PASSWORD_PGSQL=123
+
+  nginx:
+    image: nginx:alpine
+    container_name: bs_nginx_proxy
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - static_volume:/app/staticfiles:ro 
+      - media_volume:/app/media:ro
+    depends_on:
+      - web
+
+volumes:
+  pgdata:
+  static_volume:
+  media_volume:

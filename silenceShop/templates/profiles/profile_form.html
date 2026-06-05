@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}{% if object %}Редактирование{% else %}Регистрация{% endif %} фиксера{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 0 auto;">
+    <h2 style="text-align: center; margin-bottom: 30px;">
+        {% if object %}Редактировать профиль: {{ object.user.username }}{% else %}Регистрация нового профиля фиксера{% endif %}
+    </h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-success">Сохранить досье</button>
+            {% if object %}
+                <a href="{% url 'fixer_detail' pk=object.pk %}" class="btn btn-secondary">Отмена</a>
+            {% else %}
+                <a href="{% url 'fixer_list' %}" class="btn btn-secondary">Отмена</a>
+            {% endif %}
+        </div>
+    </form>
+</div>
+{% endblock %}

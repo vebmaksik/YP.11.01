@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Заказ оформлен — Черная Тишина{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 50px; background-color: #121215; border: 1px solid #1e5a22; border-radius: 3px; max-width: 650px; margin: 50px auto;">
+    <h2 style="color: #a5d6a7; margin-bottom: 20px;">ЗАКАЗ УСПЕШНО СФОРМИРОВАН!</h2>
+    <p style="font-size: 18px; margin-bottom: 10px;">Номер вашего рапорта на поставку: <strong>#{{ order.id }}</strong></p>
+    <p style="font-size: 16px; color: #a9a9b0; margin-bottom: 30px;">Снаряжение закреплено за фиксером: <strong style="color: #ffffff;">{{ order.user.username|upper }}</strong>.</p>
+    
+    <div style="background-color: #1a1a1f; padding: 20px; border: 1px solid #222; text-align: left; margin-bottom: 30px;">
+        <h4 style="margin-top: 0; color: #cda869;">Сводка по заказу:</h4>
+        <p style="margin: 5px 0; font-size: 14px;">Статус: <span style="color: #bfa15f;">В обработке</span></p>
+        <p style="margin: 5px 0; font-size: 14px;">Итоговая стоимость: <span style="color: #cda869;">{{ order.total_price }} Ankh</span></p>
+    </div>
+    
+    <a href="{% url 'equipment_list' %}" class="btn">Вернуться к просмотру каталога</a>
+</div>
+{% endblock %}

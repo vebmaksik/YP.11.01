@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}{{ equipment.name }} — Детали снаряжения{% endblock %}
+
+{% block content %}
+<div class="detail-view">
+    <div>
+        {% if equipment.photo %}
+            <img src="{{ equipment.photo.url }}" alt="{{ equipment.name }}">
+        {% else %}
+            <div style="width: 350px; height: 350px; background-color: #1a1a1f; border: 1px solid #1f1f24; display: flex; align-items: center; justify-content: center; color: #55555c;">Изображение отсутствует</div>
+        {% endif %}
+    </div>
+    <div class="detail-info">
+        <h2>{{ equipment.name }}</h2>
+        <p><strong>Мастерская:</strong> 
+            {% if equipment.workshop %}
+                <a href="{% url 'workshop_detail' pk=equipment.workshop.pk %}" style="color: #cda869; text-decoration: none;">{{ equipment.workshop.name }}</a>
+            {% else %}
+                Неизвестно
+            {% endif %}
+        </p>
+        <p><strong>Категория:</strong> 
+            {% if equipment.category %}
+                <a href="{% url 'category_detail' pk=equipment.category.pk %}" style="color: #cda869; text-decoration: none;">{{ equipment.category.name }}</a>
+            {% else %}
+                Не указана
+            {% endif %}
+        </p>
+        <p><strong>Уровень силы:</strong> {{ equipment.level }}</p>
+        <p><strong>Цвет/Оттенок:</strong> {{ equipment.color }}</p>
+        <p><strong>Наличие:</strong> {% if equipment.is_exists %}Доступно к заказу{% else %}Отсутствует на складе{% endif %}</p>
+        
+        <hr style="border: 0; border-top: 1px solid #1f1f24; margin: 20px 0;">
+        <p style="font-size: 15px; color: #a9a9b0; margin-bottom: 25px;">{{ equipment.description|default:"Описание для данного снаряжения отсутствует." }}</p>
+        
+        <h3 style="color: #cda869; margin-bottom: 30px;">Стоимость: {{ equipment.price }} Ankh</h3>
+        
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            {% if equipment.is_exists %}
+                <a href="{% url 'cart_add' pk=equipment.pk %}" class="btn btn-success" style="font-weight: bold;">Добавить в корзину</a>
+            {% else %}
+                <button class="btn btn-secondary" style="background-color: #222; color: #555; cursor: not-allowed; border: 1px solid #333;" disabled>Нет в наличии</button>
+            {% endif %}
+            
+            {% if clearance_level >= 4 %}
+                <a href="{% url 'equipment_update' pk=equipment.pk %}" class="btn btn-secondary">Редактировать</a>
+            {% endif %}
+            {% if clearance_level >= 8 %}
+                <a href="{% url 'equipment_delete' pk=equipment.pk %}" class="btn">Удалить</a>
+            {% endif %}
+            
+            <a href="{% url 'equipment_list' %}" class="btn btn-secondary" style="background-color: #333;">Назад в каталог</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Регистрация — Черная Тишина{% endblock %}
+
+{% block content %}
+<div style="max-width: 450px; margin: 50px auto;">
+    <h2 style="text-align: center; margin-bottom: 30px;">РЕГИСТРАЦИЯ В АТЕЛЬЕ</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-actions" style="justify-content: center; flex-direction: column; gap: 15px;">
+            <button type="submit" class="btn btn-success" style="width: 100%;">Зарегистрироваться</button>
+            <p style="text-align: center; font-size: 13px; margin: 0;">
+                Уже зарегистрированы? <a href="{% url 'login' %}" style="color: #cda869; text-decoration: none;">Войти</a>
+            </p>
+        </div>
+    </form>
+</div>
+{% endblock %}

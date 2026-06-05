@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Мастерские — Черная Тишина{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+    <h2>Лицензированные Мастерские Города</h2>
+    {% if clearance_level >= 8 %}
+        <a href="{% url 'workshop_create' %}" class="btn btn-success">+ Зарегистрировать мастерскую</a>
+    {% endif %}
+</div>
+
+<div class="grid">
+    {% for ws in workshops %}
+    <div class="card">
+        <div>
+            {% if ws.logo %}
+                <img src="{{ ws.logo.url }}" alt="{{ ws.name }}">
+            {% else %}
+                <div style="height: 200px; background-color: #1a1a1f; border: 1px solid #1f1f24; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; color: #55555c;">Нет логотипа</div>
+            {% endif %}
+            <h3>{{ ws.name }}</h3>
+        </div>
+        <div style="margin-top: 15px;">
+            <a href="{% url 'workshop_detail' pk=ws.pk %}" class="btn" style="width: 80%; text-align: center;">О мастерской</a>
+        </div>
+    </div>
+    {% empty %}
+    <div style="grid-column: 1 / -1; text-align: center; padding: 40px; background-color: #121215; border: 1px solid #1f1f24; border-radius: 3px;">
+        <p>Мастерские пока не зарегистрированы.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

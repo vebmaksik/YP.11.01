@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Фиксеры — Черная Тишина{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+    <h2>Список Фиксеров Ассоциации</h2>
+    {% if clearance_level >= 8 %}
+        <a href="{% url 'fixer_create' %}" class="btn btn-success">+ Зарегистрировать фиксера</a>
+    {% endif %}
+</div>
+
+<div class="grid">
+    {% for prof in profiles %}
+    <div class="card">
+        <div>
+            {% if prof.avatar %}
+                <img src="{{ prof.avatar.url }}" alt="{{ prof.user.username }}" style="border-radius: 50%; width: 120px; height: 120px; margin: 0 auto 15px;">
+            {% else %}
+                <div style="width: 120px; height: 120px; border-radius: 50%; background-color: #1a1a1f; border: 1px solid #1f1f24; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: #55555c;">Нет аватара</div>
+            {% endif %}
+            <h3>{{ prof.user.username }}</h3>
+            <p style="font-size: 14px;">Ранг/Роль: <span style="color: #cda869;">{{ prof.role.name|default:"Без ранга" }}</span></p>
+        </div>
+        <div style="margin-top: 15px;">
+            <a href="{% url 'fixer_detail' pk=prof.pk %}" class="btn" style="width: 80%; text-align: center;">Досье</a>
+        </div>
+    </div>
+    {% empty %}
+    <div style="grid-column: 1 / -1; text-align: center; padding: 40px; background-color: #121215; border: 1px solid #1f1f24; border-radius: 3px;">
+        <p>Досье фиксеров не зарегистрированы в базе.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

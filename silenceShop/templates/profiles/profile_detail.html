@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}{{ profile.user.username }} — Досье фиксера{% endblock %}
+
+{% block content %}
+<div class="detail-view">
+    <div>
+        {% if profile.avatar %}
+            <img src="{{ profile.avatar.url }}" alt="{{ profile.user.username }}" style="border-radius: 3px;">
+        {% else %}
+            <div style="width: 350px; height: 350px; background-color: #1a1a1f; border: 1px solid #1f1f24; display: flex; align-items: center; justify-content: center; color: #55555c;">Аватар отсутствует</div>
+        {% endif %}
+    </div>
+    <div class="detail-info">
+        <h2>Фиксер: {{ profile.user.username }}</h2>
+        <p><strong>Ранг в Библиотеке:</strong> {{ profile.role.name|default:"Без определенной роли" }}</p>
+        <p><strong>Уровень допуска:</strong> {{ profile.role.clearance_level|default:"1" }}</p>
+        <hr style="border: 0; border-top: 1px solid #1f1f24; margin: 20px 0;">
+        <p style="font-size: 16px; color: #a9a9b0; margin-bottom: 30px;">{{ profile.bio|default:"Личное биографическое досье фиксера отсутствует." }}</p>
+        
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            {% if clearance_level >= 4 %}
+                <a href="{% url 'fixer_update' pk=profile.pk %}" class="btn btn-secondary">Редактировать</a>
+            {% endif %}
+            {% if clearance_level >= 8 %}
+                <a href="{% url 'fixer_delete' pk=profile.pk %}" class="btn">Удалить досье</a>
+            {% endif %}
+            <a href="{% url 'fixer_list' %}" class="btn btn-secondary">Назад к списку</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
