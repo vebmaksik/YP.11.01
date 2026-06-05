@@ -46,7 +46,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # Наш новый контекстный процессор допуска:
                 'silenceShop.context_processors.clearance_processor',
             ],
         },

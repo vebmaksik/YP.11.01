@@ -20,14 +20,14 @@ def get_clearance(user):
     return 1
 
 
-# ==================== КАСТОМНАЯ ПАГИНАЦИЯ ====================
+#КАСТОМНАЯ ПАГИНАЦИЯ
 class ApiCustomPagination(PageNumberPagination):
     page_size = 5
     page_size_query_param = 'page_size'
     max_page_size = 100
 
 
-# ==================== КАСТОМНЫЕ ПРАВА ДОСТУПА API ====================
+#КАСТОМНЫЕ ПРАВА ДОСТУПА API 
 
 class IsClearance8OrReadOnly(permissions.BasePermission):
     """
@@ -60,7 +60,7 @@ class IsOwnerOrClearance8(permissions.BasePermission):
         return bool(request.user and obj.user == request.user)
 
 
-# ==================== API VIEWSETS ====================
+#API VIEWSETS 
 
 class RoleViewSet(viewsets.ModelViewSet):
     queryset = Role.objects.all().order_by('id')
