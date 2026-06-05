@@ -34,20 +34,17 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("silenceMode", "active");
         silenceBtn.classList.add("silence-active");
         silenceBtn.innerText = "РЕЖИМ ТИШИНЫ: ВКЛ";
-        // Приглушаем яркость некоторых элементов для эффекта угасания звука
-        document.querySelectorAll(".card, .detail-view, form").forEach(el => {
-            el.style.boxShadow = "none";
-            el.style.borderColor = "#15151a";
-        });
+        
+        // Включаем «тишину» глобально для всего документа
+        document.body.classList.add("silence-mode-active");
     }
 
     function disableSilenceMode() {
         localStorage.removeItem("silenceMode");
         silenceBtn.classList.remove("silence-active");
         silenceBtn.innerText = "РЕЖИМ ТИШИНЫ: ВЫКЛ";
-        // Возвращаем стандартные рамки
-        document.querySelectorAll(".card, .detail-view, form").forEach(el => {
-            el.style.borderColor = "";
-        });
+        
+        // Возвращаем привычные цвета и градиенты
+        document.body.classList.remove("silence-mode-active");
     }
 });

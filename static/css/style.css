@@ -1,45 +1,70 @@
+/* CSS-переменные для быстрой настройки тонов */
+:root {
+    --bg-dark-solid: #0c0c0e;
+    /* Мягкий градиент фона: из темно-серого с легким фиолетовым отливом дыма в глубокий черный */
+    --bg-radial-gradient: radial-gradient(circle at 50% 25%, #15141a 0%, #0c0c0e 70%, #050506 100%);
+    
+    /* Цвета золота и багрянца */
+    --color-gold: #cda869;
+    --color-gold-glow: rgba(205, 168, 105, 0.25);
+    --color-red: #8c1d1d;
+    --color-red-hover: #b02828;
+    
+    /* Градиенты для кнопок */
+    --btn-red-gradient: linear-gradient(135deg, #a62424 0%, #6e1414 100%);
+    --btn-red-gradient-hover: linear-gradient(135deg, #c73232 0%, #8c1d1d 100%);
+    --btn-secondary-gradient: linear-gradient(135deg, #383840 0%, #202024 100%);
+    --btn-success-gradient: linear-gradient(135deg, #2b7530 0%, #153d18 100%);
+    
+    /* Градиент для карточек */
+    --card-gradient: linear-gradient(145deg, rgba(22, 22, 27, 0.9) 0%, rgba(13, 13, 16, 0.98) 100%);
+}
+
 /* Общие настройки */
 body {
-    background-color: #0c0c0e;
+    background-color: var(--bg-dark-solid);
+    background-image: var(--bg-radial-gradient);
+    background-attachment: fixed;
     color: #d1d1d6;
     font-family: 'Georgia', serif;
     margin: 0;
     padding: 0;
     line-height: 1.6;
     opacity: 0; /* Для плавного появления страницы через JS */
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out, background 0.8s ease;
 }
 
 body.fade-in {
     opacity: 1;
 }
 
-/* Стили заголовков */
+/* Стили заголовков с добавлением легкого золотого свечения */
 h1, h2, h3, h4 {
-    color: #cda869;
+    color: var(--color-gold);
     font-weight: normal;
     margin-top: 0;
     letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
-/* Кнопки */
+/* Кнопки с градиентами */
 .btn {
-    background-color: #8c1d1d;
+    background: var(--btn-red-gradient);
     color: #ffffff;
     padding: 10px 20px;
     text-decoration: none;
     display: inline-block;
-    transition: background-color 0.3s, transform 0.1s, box-shadow 0.3s;
-    border: none;
+    transition: background 0.4s, transform 0.1s, box-shadow 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.05);
     cursor: pointer;
     font-family: 'Georgia', serif;
     font-size: 14px;
-    border-radius: 2px;
+    border-radius: 3px;
 }
 
 .btn:hover {
-    background-color: #b02828;
-    box-shadow: 0 0 10px rgba(176, 40, 40, 0.4);
+    background: var(--btn-red-gradient-hover);
+    box-shadow: 0 4px 15px rgba(176, 40, 40, 0.4);
 }
 
 .btn:active {
@@ -47,27 +72,29 @@ h1, h2, h3, h4 {
 }
 
 .btn-secondary {
-    background-color: #2b2b30;
+    background: var(--btn-secondary-gradient);
 }
 
 .btn-secondary:hover {
-    background-color: #404047;
-    box-shadow: 0 0 10px rgba(64, 64, 71, 0.4);
+    background: linear-gradient(135deg, #4d4d57 0%, #2b2b30 100%);
+    box-shadow: 0 4px 15px rgba(64, 64, 71, 0.4);
 }
 
 .btn-success {
-    background-color: #1e5a22;
+    background: var(--btn-success-gradient);
 }
 
 .btn-success:hover {
-    background-color: #2e7d32;
-    box-shadow: 0 0 10px rgba(46, 125, 50, 0.4);
+    background: linear-gradient(135deg, #3b9141 0%, #1e5a22 100%);
+    box-shadow: 0 4px 15px rgba(46, 125, 50, 0.4);
 }
 
 /* Навигация (Header) */
 header {
-    background-color: #121215;
-    border-bottom: 2px solid #8c1d1d;
+    background: linear-gradient(180deg, rgba(21, 21, 26, 0.95) 0%, rgba(13, 13, 16, 0.95) 100%);
+    backdrop-filter: blur(8px);
+    border-bottom: 2px solid var(--color-red);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     padding: 15px 0;
     position: sticky;
     top: 0;
@@ -85,7 +112,7 @@ nav {
 }
 
 nav a {
-    color: #cda869;
+    color: var(--color-gold);
     text-decoration: none;
     font-size: 14px;
     font-weight: bold;
@@ -95,7 +122,7 @@ nav a {
 
 nav a:hover, nav a.active {
     color: #ffffff;
-    text-shadow: 0 0 8px #cda869;
+    text-shadow: 0 0 10px var(--color-gold);
 }
 
 /* Главный контейнер */
@@ -115,20 +142,24 @@ nav a:hover, nav a.active {
 }
 
 .card {
-    background-color: #121215;
-    border: 1px solid #1f1f24;
+    background: var(--card-gradient);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     padding: 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: border-color 0.3s, transform 0.3s;
-    border-radius: 3px;
+    transition: border-color 0.4s, transform 0.4s, box-shadow 0.4s;
+    border-radius: 4px;
 }
 
 .card:hover {
-    border-color: #cda869;
+    border-color: var(--color-gold);
     transform: translateY(-5px);
+    box-shadow: 
+        0 12px 30px rgba(0, 0, 0, 0.6),
+        0 0 15px var(--color-gold-glow);
 }
 
 .card img {
@@ -136,31 +167,34 @@ nav a:hover, nav a.active {
     height: 200px;
     object-fit: cover;
     margin-bottom: 15px;
-    border: 1px solid #1f1f24;
-    transition: filter 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: filter 0.3s, border-color 0.3s;
 }
 
 .card:hover img {
     filter: brightness(1.1);
+    border-color: rgba(205, 168, 105, 0.3);
 }
 
 /* Детальные страницы */
 .detail-view {
-    background-color: #121215;
-    border: 1px solid #1f1f24;
+    background: var(--card-gradient);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     padding: 40px;
     display: flex;
     gap: 40px;
     flex-wrap: wrap;
-    border-radius: 3px;
+    border-radius: 4px;
+    transition: border-color 0.4s, box-shadow 0.4s;
 }
 
 .detail-view img {
     max-width: 380px;
     width: 100%;
     height: auto;
-    border: 1px solid #cda869;
-    box-shadow: 0 0 15px rgba(205, 168, 105, 0.15);
+    border: 1px solid var(--color-gold);
+    box-shadow: 0 0 20px rgba(205, 168, 105, 0.15);
 }
 
 .detail-info {
@@ -170,12 +204,14 @@ nav a:hover, nav a.active {
 
 /* Оформление форм Django */
 form {
-    background-color: #121215;
-    border: 1px solid #1f1f24;
+    background: var(--card-gradient);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     padding: 30px;
     max-width: 600px;
     margin: 0 auto;
-    border-radius: 3px;
+    border-radius: 4px;
+    transition: border-color 0.4s, box-shadow 0.4s;
 }
 
 form p {
@@ -184,12 +220,11 @@ form p {
 
 form label {
     display: block;
-    color: #cda869;
+    color: var(--color-gold);
     margin-bottom: 8px;
     font-size: 14px;
 }
 
-/* В селектор ниже добавлено поле для ввода пароля (form input[type="password"]) */
 form input[type="text"],
 form input[type="number"],
 form input[type="password"],
@@ -198,13 +233,13 @@ form select,
 form textarea {
     width: 100%;
     padding: 12px;
-    background-color: #1a1a1f;
-    border: 1px solid #333;
+    background-color: #15151a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     color: #fff;
     font-family: inherit;
     box-sizing: border-box;
-    transition: border-color 0.3s, background-color 0.3s;
-    border-radius: 2px;
+    transition: border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
+    border-radius: 3px;
 }
 
 form input[type="text"]:focus,
@@ -212,8 +247,9 @@ form input[type="number"]:focus,
 form input[type="password"]:focus,
 form select:focus,
 form textarea:focus {
-    border-color: #cda869;
-    background-color: #212128;
+    border-color: var(--color-gold);
+    background-color: #1a1a21;
+    box-shadow: 0 0 8px var(--color-gold-glow);
     outline: none;
 }
 
@@ -240,20 +276,21 @@ form textarea {
 
 .alert {
     padding: 15px;
-    border-radius: 2px;
+    border-radius: 3px;
     margin-bottom: 10px;
     font-size: 14px;
     border-left: 4px solid;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
 }
 
 .alert-success {
-    background-color: rgba(30, 90, 34, 0.2);
+    background: linear-gradient(90deg, rgba(30, 90, 34, 0.25) 0%, rgba(30, 90, 34, 0.05) 100%);
     border-color: #2e7d32;
     color: #a5d6a7;
 }
 
 .alert-error {
-    background-color: rgba(140, 29, 29, 0.2);
+    background: linear-gradient(90deg, rgba(140, 29, 29, 0.25) 0%, rgba(140, 29, 29, 0.05) 100%);
     border-color: #8c1d1d;
     color: #ef9a9a;
 }
@@ -264,30 +301,68 @@ footer {
     padding: 40px;
     color: #55555c;
     font-size: 12px;
-    border-top: 1px solid #1f1f24;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
     margin-top: 50px;
 }
 
 /* Специальная кнопка звукового режима */
 .silence-toggle {
     background: none;
-    border: 1px solid #cda869;
-    color: #cda869;
+    border: 1px solid var(--color-gold);
+    color: var(--color-gold);
     padding: 5px 12px;
     cursor: pointer;
     font-family: inherit;
     font-size: 11px;
-    transition: 0.3s;
-    border-radius: 2px;
+    transition: all 0.3s ease;
+    border-radius: 3px;
 }
 
 .silence-toggle:hover {
-    background-color: #cda869;
+    background-color: var(--color-gold);
     color: #0c0c0e;
+    box-shadow: 0 0 10px var(--color-gold-glow);
 }
 
 .silence-active {
-    border-color: #8c1d1d;
-    color: #8c1d1d;
-    box-shadow: 0 0 8px rgba(140, 29, 29, 0.4);
+    border-color: var(--color-red);
+    color: var(--color-red);
+    box-shadow: 0 0 12px rgba(140, 29, 29, 0.5);
+}
+
+/* 
+=========================================
+ЭФФЕКТЫ "РЕЖИМА ТИШИНЫ" ЧЕРЕЗ КЛАСС BODY 
+=========================================
+*/
+body.silence-mode-active {
+    /* Перестраиваем фон на глухой, безжизненный мрак без искр */
+    background-image: radial-gradient(circle at 50% 50%, #070709 0%, #030304 100%);
+}
+
+/* Приглушаем карточки, формы и детали в режиме тишины */
+body.silence-mode-active .card, 
+body.silence-mode-active .detail-view, 
+body.silence-mode-active form {
+    border-color: #15151a !important;
+    box-shadow: none !important;
+    background: rgba(10, 10, 12, 0.95);
+}
+
+body.silence-mode-active .card:hover {
+    transform: none; /* Убираем левитацию при наведении в безмолвии */
+}
+
+/* Угасание яркости заголовков, ссылок и текста */
+body.silence-mode-active h1,
+body.silence-mode-active h2,
+body.silence-mode-active h3,
+body.silence-mode-active h4,
+body.silence-mode-active nav a {
+    color: #5d5d66 !important;
+    text-shadow: none !important;
+}
+
+body.silence-mode-active nav a:hover {
+    color: #888894 !important;
 }
